@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Excuse Factory</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body{
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .space-header{
+            min-height: 50px;
+        }
+
+        .text-output{
+            padding-top: 20px;
+        }
+
+        body{
+            background-image: linear-gradient(45deg, #00466f, #007782, #00a562);
+            min-height: 100vh;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        *{
+            color: white;
+        }
+        .generate-button{
+            display: inline-block;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border:none;
+            border-radius: 3px;
+            background-color: #00ac69;/*#46ca65;*/
+            padding: 5px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            text-decoration:none;
+        }
+
+        #text-output-field{
+            font-family: Arial Narrow, Verdana, sans-serif;
+            font-size: 25px;
+            height: 150px;
+            margin-top: 45px;
+            display: inline-block;
+        }
+
+        #bottom-panel-text{
+            position: fixed;
+            bottom: 0;
+        }
+
+        .text-output{
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container space-header">
+</div>
+<div class="container text-output">
+    <div class="row">
+        <div class="col">
+            <span id="text-output-field">&nbsp;</span>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button class="generate-button" id="generate-button">Generate</button>
+        </div>
+    </div>
+</div>
+<div id="bottom-panel-text">
+    The ENTER key also works!
+</div>
+</body>
+<script>
+    (function(){
+        window.onkeydown = function(e){
+            if(e.keyCode === 13){
+                outputSentence();
+            }
+        };
+
+        var firstComponent = [
+            "I'm sorry, but",
+            "Please forgive me",
+            "Beg you a thousand pardons-",
+            "I apologize, however",
+            "I'm never usually like this, but",
+            "You're never going to believe this, but",
+            "Guess what happened?!?",
+            "Holy shit! Get this:",
+            "Boy do I have a story for you,",
+            "So I was minding my own business and boom--",
+            "The most unbelievable thing just happened;",
+            "I couldn't be more apologetic, but",
+            "Sorry I'm late,",
+            "I couldn't go becuase",
+            "I couldn't help it",
+            "This is a terrible excuse, but",
+            "This going to sound crazy, but",
+            "Holy Moses!",
+            "Blimey! Sorry I'm late guv'nha,",
+            "I swear it wasn't my fault",
+            "I lost track of time because",
+            "I feel terrible, but",
+            "Don't blame me,",
+            "I missed that meeting because"
+        ];
+
+        var secondComponent = [
+            "Christopher Walken",
+            "Princess Peach",
+            "Godzilla",
+            "Karl",
+            "Michael",
+            "the offensive line of the '76 Dallas Cowboys",
+            "a triceratops named Penelope",
+            "the inventor of the slanket",
+            "the director of 101 Dalmations",
+            "Will",
+            "a man with 6 fingers on his right hand",
+            "my mom",
+            "The Karloffs",
+            "Barack Obama",
+            "Raiden from Mortal Kombat",
+            "Mayor McCheese",
+            "Scrooge McDuck",
+            "the ghost of Margaret Thatcher",
+            "the ghost of Hitler",
+            "Ghost Dad",
+            "the entire Roman Empire",
+            "Kevin Ware's leg bone",
+            "a British chap",
+            "Kevin Spacey",
+            "Kevin Costner's stunt double",
+            "Kevin McCallister's real life fake tarantuala",
+            "the Cthulhu",
+            "a flock of seagulls",
+            "a mob of girlscouts",
+            "Fred the bear",
+            "Sharknado",
+            "the Romulans",
+            "Steve Buscemi",
+            "Katherine",
+            "Shia LaBeouf",
+            "Ray Russell",
+            "your mom"
+        ];
+
+        var thirdComponent = [
+            "beat me into submission.",
+            "hid my Trapper Keeper.",
+            "stole my bicycle",
+            "stole my identity.",
+            "broke into my house.",
+            "put me in a Chinese finger trap.",
+            "came after me.",
+            "took me bowling",
+            "spin-kicked me in the collar bone",
+            "tried to sell me vacuum cleaners.",
+            "put water in my gas tank.",
+            "made me golf in shoes filled with macaroni and cheese.",
+            "pulled me over in a stolen cop car.",
+            "helped me find Jesus.",
+            "kept telling me knock knock jokes.",
+            "stuffed me into a trash can.",
+            "was tweeting about me.",
+            "was throwing squirrels at me.",
+            "was out of chromebooks",
+            "made me stay and do my timesheets",
+            "ate my timesheets",
+            "ate my homework",
+            "pushed me into a sharknado",
+            "made me look at dead memes",
+            "got me drunk",
+            "stole my underwear",
+            "made me drive them to Comeback Shack",
+            "was really hungover",
+            "ate my bicycle",
+            "made me watch cat videos",
+            "sent me to employee training",
+            "booked the audio room",
+            "broke the video room",
+            "was giving out free doughnuts",
+            "was giving out free coffee",
+            "threw my books out the window",
+            "broke the VR equipment in the game room",
+            "lost a macbook and had to spend forever making up an excuse about it",
+            "took the dean's scooter for a joyride",
+            "found the IMC",
+            "took the wrong AppalCart",
+            "gave me bad directions",
+            "told me it was cancelled"
+        ];
+
+        document.getElementById("generate-button").addEventListener("click", function(){
+            outputSentence();
+        });
+
+        function outputSentence(){
+            //$("#text-output-field").html(sentence);
+            document.getElementById("text-output-field").innerHTML = getRandom(firstComponent)
+                + " " + getRandom(secondComponent)
+                + " " + getRandom(thirdComponent);
+        }
+
+        function getRandom(array){
+            return array[Math.floor(Math.random()*array.length)];
+        }
+
+        outputSentence();
+    })();
+</script>
+</html>
